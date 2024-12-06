@@ -2,6 +2,7 @@ import 'package:commety_management_app/models/commety_model.dart';
 import 'package:commety_management_app/models/pending_payments.dart';
 import 'package:commety_management_app/sample_data/dummyCommeties.dart';
 import 'package:commety_management_app/sample_data/dummyPayments.dart';
+import 'package:commety_management_app/ui/components/InputField.dart';
 import 'package:commety_management_app/ui/components/commetyCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -17,6 +18,8 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   List<CommetyModel> commeties = [];
   List<PendingPayments> pending_payments = [];
+TextEditingController testController = TextEditingController();
+
 
   @override
   void initState() {
@@ -225,6 +228,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   SizedBox(
                     height: 20,
                   ),
+
                   ListView.builder(
                       itemCount: pending_payments.length,
                       shrinkWrap: true,
