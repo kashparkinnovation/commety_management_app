@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class InputField extends StatelessWidget {
   final String label;
   final bool obscureText;
+  final Color? borderColor;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final IconData? prefixIcon;
@@ -21,6 +22,7 @@ class InputField extends StatelessWidget {
       required this.controller,
       this.minLines,
       this.validator,
+        this.borderColor,
       this.prefixIcon,
       this.focusNode,
       this.keyboardType,
@@ -36,6 +38,7 @@ class InputField extends StatelessWidget {
             ? Colors.grey
             : Colors.brown
         : Colors.brown;
+    bordercolor = borderColor ?? Colors.brown;
     return TextFormField(
       textAlign: textCenter != null ? TextAlign.center : TextAlign.start,
       textAlignVertical: TextAlignVertical.center,
@@ -51,8 +54,8 @@ class InputField extends StatelessWidget {
         errorStyle:
             TextStyle(color: Colors.redAccent, fontSize: fontsize ?? 14),
         labelStyle:
-            TextStyle(color: Colors.brown, fontSize: fontsize ?? 14),
-        floatingLabelStyle: TextStyle(fontSize: fontsize ?? 14),
+            TextStyle(color: bordercolor, fontSize: fontsize ?? 14),
+        floatingLabelStyle: TextStyle(fontSize: fontsize ?? 14, color: bordercolor),
         hintStyle: TextStyle(fontSize: fontsize ?? 14),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -75,7 +78,7 @@ class InputField extends StatelessWidget {
           borderSide: BorderSide(color: bordercolor), // Customize border color
         ),
       ),
-      keyboardType: keyboardType != null ? TextInputType.number : keyboardType,
+      keyboardType: keyboardType ?? TextInputType.text,
       obscureText: obscureText,
       controller: controller,
       validator: validator,
