@@ -1,6 +1,6 @@
 import 'package:commety_management_app/ui/components/InputField.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 
 class AddCommetyScreen extends StatefulWidget {
   const AddCommetyScreen({super.key});
@@ -69,6 +69,7 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         height: 20,
                       ),
                       InputField(
+                        // Amount Is Numeric,
                         label: "Amount",
                         controller: amountController,
                         borderColor: Colors.black,
@@ -85,6 +86,7 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         height: 20,
                       ),
                       InputField(
+                        // Month Should Be Numeric and of maximum 2 digits, can not be less than 2
                         label: "Month & Member Count",
                         controller: month_member_Controller,
                         borderColor: Colors.black,
@@ -101,7 +103,9 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         height: 20,
                       ),
                       InputField(
-                        label: "Control rate (%)",
+                        // Control Rate Should Be Numeric and of maximum 1 digits, can not be 0
+
+                      label: "Control rate (%)",
                         controller: controlRateController,
                         borderColor: Colors.black,
                         keyboardType: TextInputType.number,
@@ -117,7 +121,9 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         height: 20,
                       ),
                       InputField(
-                        label: "Second Last Profit",
+                        // Second Last Profit Should Be Numeric,
+
+                      label: "Second Last Profit",
                         controller: secondLastAskController,
                         borderColor: Colors.black,
                         keyboardType: TextInputType.number,
@@ -133,6 +139,7 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         height: 20,
                       ),
                       InputField(
+                        // Auction Date Should be 1 - 31,
                         label: "Monthly Auction Date",
                         controller: monthlyDateController,
                         borderColor: Colors.black,
@@ -166,9 +173,9 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                               startDateController.text = "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}";
                               int month_val = int.parse(month_member_Controller.text!= ""? month_member_Controller.text : "0");
                               if(month_val != 0){
-                                endDateController.text = "${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}";
+                                DateTime endDate = Jiffy.parseFromDateTime(selectedDate).add(months: month_val).dateTime;
+                                endDateController.text = "${endDate!.day}/${endDate!.month}/${endDate!.year}";
                               }
-
                             },
                             child: Icon(Icons.calendar_month_rounded)),
                         validator: (value) {
