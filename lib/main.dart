@@ -1,3 +1,4 @@
+import 'package:commety_management_app/ui/screens/AddCommtyScreen.dart';
 import 'package:commety_management_app/ui/screens/AddMemberScreen.dart';
 import 'package:commety_management_app/ui/screens/DashboardScreen.dart';
 import 'package:commety_management_app/ui/screens/LoginScreen.dart';
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: SplashScreen(),
-      initialRoute: '/addMember',
+      initialRoute: '/addCommety',
       routes: {
         '/login':(context)=>const LoginScreen(),
         '/dashboard':(context)=>const DashboardScreen(),
         '/splash' : (context)=>const SplashScreen(),
         '/addMember' : (context)=>const AddMemberScreen(),
+        '/addCommety' : (context)=>const AddCommetyScreen(),
       },
     );
   }

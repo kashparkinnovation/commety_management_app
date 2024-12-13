@@ -8,6 +8,7 @@ class InputField extends StatelessWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final IconData? prefixIcon;
+  final Widget? suffixIcon;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final bool? readonly;
@@ -24,6 +25,7 @@ class InputField extends StatelessWidget {
       this.validator,
         this.borderColor,
       this.prefixIcon,
+        this.suffixIcon,
       this.focusNode,
       this.keyboardType,
       this.textCenter,
@@ -51,6 +53,7 @@ class InputField extends StatelessWidget {
         errorMaxLines: 2,
         labelText: label,
         prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        suffixIcon: suffixIcon??null,
         errorStyle:
             TextStyle(color: Colors.redAccent, fontSize: fontsize ?? 14),
         labelStyle:
