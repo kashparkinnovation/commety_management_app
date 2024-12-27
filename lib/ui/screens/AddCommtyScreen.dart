@@ -204,6 +204,7 @@ class _AddCommetyScreenState extends State<AddCommetyScreen> {
                         child: InkWell(
                           onTap: () {
                             if (formKey!.currentState!.validate()) {
+
                               print("Form Complete");
                             }
                           },

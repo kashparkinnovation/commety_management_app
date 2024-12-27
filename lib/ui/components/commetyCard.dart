@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CommetyCard extends StatelessWidget {
   CommetyModel commetyModel;
+
    CommetyCard({super.key,required this.commetyModel});
 
 

@@ -1,12 +1,20 @@
+import 'package:commety_management_app/firebase_options.dart';
 import 'package:commety_management_app/ui/screens/AddCommtyScreen.dart';
 import 'package:commety_management_app/ui/screens/AddMemberScreen.dart';
 import 'package:commety_management_app/ui/screens/DashboardScreen.dart';
 import 'package:commety_management_app/ui/screens/LoginScreen.dart';
+import 'package:commety_management_app/ui/screens/NoInternet.dart';
 import 'package:commety_management_app/ui/screens/SplashScreen.dart';
 import 'package:commety_management_app/FirstScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 
@@ -23,14 +31,15 @@ class MyApp extends StatelessWidget {
              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: SplashScreen(),
-      initialRoute: '/addCommety',
+      // home: DashboardScreen(),
+      initialRoute: '/login',
       routes: {
         '/login':(context)=>const LoginScreen(),
         '/dashboard':(context)=>const DashboardScreen(),
         '/splash' : (context)=>const SplashScreen(),
-        '/addMember' : (context)=>const AddMemberScreen(),
+        '/addMember' : (context)=> AddMemberScreen(),
         '/addCommety' : (context)=>const AddCommetyScreen(),
+        '/noInternet' : (context) => const NoInternetScreen()
       },
     );
   }

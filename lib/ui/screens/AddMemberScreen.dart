@@ -2,17 +2,21 @@ import 'package:commety_management_app/ui/components/InputField.dart';
 import 'package:flutter/material.dart';
 
 class AddMemberScreen extends StatefulWidget {
-  const AddMemberScreen({super.key});
+
+
+   AddMemberScreen({super.key});
 
   @override
   State<AddMemberScreen> createState() => _AddMemberScreenState();
 }
 
 class _AddMemberScreenState extends State<AddMemberScreen> {
+
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
+  bool _is_loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +61,11 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                         keyboardType: TextInputType.name,
                         prefixIcon: Icons.person,
                         validator: (value){
-
                           if(value!.trim().length < 3){
                             return "Please Enter Correct Name";
                           }else{
                             return null;
                           }
-
                         },
                       ),
                       SizedBox(
@@ -87,6 +89,8 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       SizedBox(
                         height: 20,
                       ),
+
+
                       InputField(
                         label: "Address",
                         controller: addressController,
@@ -107,9 +111,9 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       Center(
                         child: InkWell(
                           onTap: (){
-                            if(formKey!.currentState!.validate()){
-                              print("Form Complete");
-                            }
+                            // if(formKey!.currentState!.validate()){
+                            //   print("Form Complete");
+                            // }
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -138,4 +142,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
       ),
     );
   }
+
+
+
 }

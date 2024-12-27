@@ -2,8 +2,8 @@ import 'package:commety_management_app/models/commety_model.dart';
 import 'package:commety_management_app/models/pending_payments.dart';
 import 'package:commety_management_app/sample_data/dummyCommeties.dart';
 import 'package:commety_management_app/sample_data/dummyPayments.dart';
-import 'package:commety_management_app/ui/components/InputField.dart';
 import 'package:commety_management_app/ui/components/commetyCard.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,16 +20,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
   List<PendingPayments> pending_payments = [];
 TextEditingController testController = TextEditingController();
 
+void isInternetAvailable() async{
+  final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
+  if(connectivityResult[0] == ConnectivityResult.none){
+    Navigator.pushNamed(context, '/noInternet');
+  }
+}
+
 
   @override
   void initState() {
     commeties = DummyCommety().getCommetyData();
     pending_payments = DummyPayments().getPendingPayments();
+    isInternetAvailable();
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -81,7 +91,10 @@ TextEditingController testController = TextEditingController();
                     color: Colors.white,
                     size: 20,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+
+
+                  },
                 ),
                 IconButton(
                   icon: FaIcon(
@@ -89,7 +102,9 @@ TextEditingController testController = TextEditingController();
                     color: Colors.white,
                     size: 20,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+Navigator.pushNamed(context, '/addMember');
+                  },
                 ),
                 Container(),
                 IconButton(
@@ -107,6 +122,7 @@ TextEditingController testController = TextEditingController();
           ),
         ),
         body: SingleChildScrollView(
+
           child: Stack(
             children: [
               Column(
@@ -149,6 +165,7 @@ TextEditingController testController = TextEditingController();
                   Stack(
                     children: [
                       Container(
+
                         color: Color.fromRGBO(58, 28, 11, 1.0),
                         child: Image.asset(
                           "asset/building.jpg",
@@ -160,12 +177,15 @@ TextEditingController testController = TextEditingController();
                         height: 300,
                       ),
                       Container(
+
                         padding: EdgeInsets.symmetric(vertical: 50),
                         height: 300,
+
                         width: double.infinity,
                         color: Color.fromRGBO(58, 28, 11, 0.7),
                         child: Column(
                           children: [
+
                             Text(
                               "Pending Payments",
                               style: TextStyle(
@@ -346,7 +366,6 @@ TextEditingController testController = TextEditingController();
                   SizedBox(
                     height: 20,
                   ),
-
                 ],
               ),
               Container(
@@ -356,7 +375,7 @@ TextEditingController testController = TextEditingController();
                   scrollDirection: Axis.horizontal,
                   itemCount: commeties.length,
                   itemBuilder: (context, index) {
-                    return CommetyCard(commetyModel: commeties[index]);
+                    return CommetyCard(commetyModel: commeties[index],);
                   },
                 ),
               )

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "905851919533",
+    "project_id": "commety-management-app",
+    "storage_bucket": "commety-management-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905851919533:android:760f198321cd042146fa24",
+        "android_client_info": {
+          "package_name": "com.kashpark.commety_app.commety_management_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1xh6G7ekQKNEFqnvLGnscqDi-ltoIZ3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905851919533:android:c06ac70c1b71e82246fa24",
+        "android_client_info": {
+          "package_name": "com.kashpark.commetyapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1xh6G7ekQKNEFqnvLGnscqDi-ltoIZ3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
