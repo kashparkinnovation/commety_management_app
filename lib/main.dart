@@ -5,7 +5,6 @@ import 'package:commety_management_app/ui/screens/DashboardScreen.dart';
 import 'package:commety_management_app/ui/screens/LoginScreen.dart';
 import 'package:commety_management_app/ui/screens/NoInternet.dart';
 import 'package:commety_management_app/ui/screens/SplashScreen.dart';
-import 'package:commety_management_app/FirstScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: DashboardScreen(),
-      initialRoute: '/login',
+      initialRoute: '/splash',
       routes: {
         '/login':(context)=>const LoginScreen(),
         '/dashboard':(context)=>const DashboardScreen(),

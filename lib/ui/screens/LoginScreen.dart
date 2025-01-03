@@ -1,6 +1,6 @@
-import 'package:commety_management_app/ui/screens/DashboardScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -211,7 +211,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 20,
                         ),
                         InkWell(
-                          onTap: () {
+                          onTap: () async{
+                            final SharedPreferences prefs = await SharedPreferences.getInstance();
+                            await prefs.setInt('counter', 10);
+                            int count = prefs.getInt('counter')!;
+                            prefs.clear();
+
+                            final int? counter = prefs.getInt('counter');
+
+
                             Navigator.pushReplacementNamed(
                                 context, '/dashboard');
                           },

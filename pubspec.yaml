@@ -34,7 +34,8 @@ dependencies:
   connectivity_plus: ^6.1.1
   http: ^1.2.2
   firebase_core: ^3.9.0
-
+  shared_preferences: ^2.3.4
+  floor: ^1.5.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -52,6 +53,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
+  floor_generator: ^1.4.2
+  build_runner: ^2.1.2
+  shared_preferences: ^2.3.5
+
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
