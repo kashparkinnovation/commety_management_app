@@ -12,7 +12,20 @@
           "package_name": "com.kashpark.commety_app.commety_management_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "905851919533-po9ob2fo659d612tp4f8k02okh183b2h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kashpark.commety_app.commety_management_app",
+            "certificate_hash": "ebd4be85923655d9d3db497965eba228e12c21db"
+          }
+        },
+        {
+          "client_id": "905851919533-58vcjq3igvbv6ajs0ao36rv9p5j1u44g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC1xh6G7ekQKNEFqnvLGnscqDi-ltoIZ3E"
@@ -20,26 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:905851919533:android:c06ac70c1b71e82246fa24",
-        "android_client_info": {
-          "package_name": "com.kashpark.commetyapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC1xh6G7ekQKNEFqnvLGnscqDi-ltoIZ3E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905851919533-58vcjq3igvbv6ajs0ao36rv9p5j1u44g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "905851919533-p8mjc6vijpb3muggbbob6tnptenuhegr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.kashpark.commetyapp.commetyManagementApp"
+              }
+            }
+          ]
         }
       }
     }

@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -10,9 +13,87 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController _user_id_controller = new TextEditingController();
-  TextEditingController _password_controller = new TextEditingController();
+  TextEditingController phoneController = new TextEditingController();
+  TextEditingController otpController = new TextEditingController();
   bool _is_otp_sent = false;
+  int resendOtpTimer = 30;
+  String verificationId = "";
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  Timer? _timer;
+
+  void startTimer() {
+    if (_timer != null) {
+      _timer!.cancel();
+    }
+
+    setState(() {
+      resendOtpTimer = 30;
+    });
+
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (resendOtpTimer > 0) {
+        setState(() {
+          resendOtpTimer--;
+        });
+      } else {
+        timer.cancel();
+        print("Timer Ended!");
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void verifyOTP() async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: otpController.text,
+      );
+      await _auth.signInWithCredential(credential);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString("uid", phoneController.text);
+      prefs.setString("mobile", phoneController.text);
+      prefs.setString("login_type", "mobile");
+      Navigator.pushNamed(context, '/dashboard');
+
+    } catch (e) {
+      print("Invalid OTP");
+    }
+  }
+  void sendOTP() async {
+    await _auth.verifyPhoneNumber(
+      phoneNumber: "+91"+phoneController.text,
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        // Auto-resolving OTP
+        await _auth.signInWithCredential(credential);
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("uid", phoneController.text);
+        prefs.setString("mobile", phoneController.text);
+        prefs.setString("login_type", "mobile");
+        Navigator.pushNamed(context, '/dashboard');
+        print("Login Successful");
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        print("Verification Failed: ${e.message}");
+      },
+      codeSent: (String verId, int? resendToken) {
+        setState(() {
+          verificationId = verId;
+          _is_otp_sent = true;
+        });
+        startTimer();
+        print("OTP Sent");
+      },
+      codeAutoRetrievalTimeout: (String verId) {
+        verificationId = verId;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +209,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           keyboardType: TextInputType.number,
-                          controller: _user_id_controller,
+                          controller: phoneController,
                           validator: (value) {
                             if (value!.length != 10) {
                               return "Please Enter Valid Mobile No.";
@@ -197,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           keyboardType: TextInputType.visiblePassword,
 
-                          controller: _password_controller,
+                          controller: otpController,
                           validator: (value) {
                             if (value!.length != 6) {
                               return "Please Enter Valid OTP";
@@ -206,22 +287,42 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                         ) : Container(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _is_otp_sent ?  Container(
+                            alignment: Alignment.center,
+                            child: InkWell(
+                              onTap: (){
+                                if(resendOtpTimer == 0){
+
+                                  setState(() {
+                                    resendOtpTimer = 30;
+                                  });
+                                  sendOTP();
+                                }
+                              },
+                              child: Text(
+                                resendOtpTimer == 0 ? "Resend OTP" : "Resend OTP in ${resendOtpTimer} second",
+                                style: TextStyle(
+                                    color: Colors.brown, fontSize: 14),
+                              ),
+                            )) : Container(),
 
                         SizedBox(
                           height: 20,
                         ),
                         InkWell(
                           onTap: () async{
-                            final SharedPreferences prefs = await SharedPreferences.getInstance();
-                            await prefs.setInt('counter', 10);
-                            int count = prefs.getInt('counter')!;
-                            prefs.clear();
 
-                            final int? counter = prefs.getInt('counter');
+                            if(_is_otp_sent){
+                              verifyOTP();
+                            }else{
+                              sendOTP();
+                            }
 
 
-                            Navigator.pushReplacementNamed(
-                                context, '/dashboard');
+
                           },
                           child: Container(
                             padding: EdgeInsets.symmetric(
@@ -249,14 +350,30 @@ class _LoginScreenState extends State<LoginScreen> {
                             )),
                         SizedBox(height: 10,),
                         InkWell(
-                          onTap: (){
-
+                          onTap: () async{
+                            final GoogleSignIn googleSignIn = GoogleSignIn();
+                              try {
+                                final GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+                                final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount!.authentication;
+                                final AuthCredential credential = GoogleAuthProvider.credential(
+                                  accessToken: googleSignInAuthentication.accessToken,
+                                  idToken: googleSignInAuthentication.idToken,
+                                );
+                                final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+                                final User? user = userCredential.user;
+                                final SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.setString("uid", user!.uid);
+                                prefs.setString("email", user!.email!);
+                                prefs.setString("login_type", "google");
+                                Navigator.pushNamed(context, '/dashboard');
+                              } catch (e) {
+                                print(e.toString());
+                              }
                           },
                           child: Card(
                             shadowColor: Colors.black,
                             elevation: 10,
                             color: Colors.white,
-
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.white,

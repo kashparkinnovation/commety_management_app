@@ -2,16 +2,13 @@ import 'package:commety_management_app/ui/components/InputField.dart';
 import 'package:flutter/material.dart';
 
 class AddMemberScreen extends StatefulWidget {
-
-
-   AddMemberScreen({super.key});
+  AddMemberScreen({super.key});
 
   @override
   State<AddMemberScreen> createState() => _AddMemberScreenState();
 }
 
 class _AddMemberScreenState extends State<AddMemberScreen> {
-
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -60,10 +57,10 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                         borderColor: Colors.black,
                         keyboardType: TextInputType.name,
                         prefixIcon: Icons.person,
-                        validator: (value){
-                          if(value!.trim().length < 3){
+                        validator: (value) {
+                          if (value!.trim().length < 3) {
                             return "Please Enter Correct Name";
-                          }else{
+                          } else {
                             return null;
                           }
                         },
@@ -72,35 +69,32 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                         height: 20,
                       ),
                       InputField(
-                        label: "Mobile",
-                        controller: phoneController,
-                        borderColor: Colors.black,
-                        keyboardType: TextInputType.phone,
-                        prefixIcon: Icons.call,
-                        validator: (mobileval){
-                          final RegExp mobileRegex = RegExp(r'^[6-9]\d{9}$');
-                          if (mobileRegex.hasMatch(mobileval!)) {
-                            return null;
-                          }else{
-                            return 'Enter a valid 10-digit mobile number';
-                        }
-                        }
-                      ),
+                          label: "Mobile",
+                          controller: phoneController,
+                          borderColor: Colors.black,
+                          keyboardType: TextInputType.phone,
+                          prefixIcon: Icons.call,
+                          validator: (mobileval) {
+                            final RegExp mobileRegex = RegExp(r'^[6-9]\d{9}$');
+                            if (mobileRegex.hasMatch(mobileval!)) {
+                              return null;
+                            } else {
+                              return 'Enter a valid 10-digit mobile number';
+                            }
+                          }),
                       SizedBox(
                         height: 20,
                       ),
-
-
                       InputField(
                         label: "Address",
                         controller: addressController,
                         borderColor: Colors.black,
                         keyboardType: TextInputType.text,
                         prefixIcon: Icons.pin_drop,
-                        validator: (value){
-                          if(value!.trim().length < 3){
+                        validator: (value) {
+                          if (value!.trim().length < 3) {
                             return "Please Enter Correct Address";
-                          }else{
+                          } else {
                             return null;
                           }
                         },
@@ -110,7 +104,7 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
                       ),
                       Center(
                         child: InkWell(
-                          onTap: (){
+                          onTap: () {
                             // if(formKey!.currentState!.validate()){
                             //   print("Form Complete");
                             // }
@@ -142,7 +136,4 @@ class _AddMemberScreenState extends State<AddMemberScreen> {
       ),
     );
   }
-
-
-
 }

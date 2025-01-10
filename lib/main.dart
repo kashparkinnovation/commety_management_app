@@ -13,7 +13,6 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: DashboardScreen(),
-      initialRoute: '/splash',
+      initialRoute: '/login',
       routes: {
         '/login':(context)=>const LoginScreen(),
         '/dashboard':(context)=>const DashboardScreen(),
